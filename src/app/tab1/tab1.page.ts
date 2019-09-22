@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CountryService } from '../api/country.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,19 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  paises: any[] = [];
+  errorMessage = '';
+  filtro: any [] = [];
+  filteredProducts: any [] = [];
+  constructor(private coutryService: CountryService) {}
 
+  ngOnInit (){
+    this.coutryService.obtenerPaises().subscribe(
+      paises => {
+        this.paises = paises;
+
+      }, err => this.errorMessage = err as any
+      );
+      console.log(this.paises)
+  }
 }
